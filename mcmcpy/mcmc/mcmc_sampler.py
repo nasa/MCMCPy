@@ -5,11 +5,11 @@ import os
 import pickle
 import pymc
 
-from AddStepMethods import DelayedRejectionAdaptiveMetropolis
-from AddStepMethods import SMC_Metropolis
+from .step_methods import DelayedRejectionAdaptiveMetropolis
+from .step_methods import SMC_Metropolis
 from scipy.optimize import minimize
 from scipy.stats import gaussian_kde
-from MCMCplots import time_vs_observations, pdf, pairwise, residuals
+from ..plotting.MCMCplots import time_vs_observations, pdf, pairwise, residuals
 
 
 class MCMCSampler:
