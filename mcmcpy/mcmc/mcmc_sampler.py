@@ -9,7 +9,7 @@ from ..step_methods.step_methods import DelayedRejectionAdaptiveMetropolis
 from ..step_methods.step_methods import SMC_Metropolis
 from scipy.optimize import minimize
 from scipy.stats import gaussian_kde
-from ..plotting.MCMCplots import time_vs_observations, pdf, pairwise, residuals
+from ..plotting.mcmc_plots import time_vs_observations, pdf, pairwise, residuals
 
 
 class MCMCSampler:
