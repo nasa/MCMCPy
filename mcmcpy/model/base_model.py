@@ -57,7 +57,7 @@ class BaseModel(object):
         raise TypeError(msg)
 
 
-    def generate_noisy_data_with_model(self, stdv, true_params):
+    def generate_noisy_data(self, stdv, true_params):
         synth_data = self.evaluate(true_params)
         noisy_data = synth_data + np.random.normal(0, stdv, synth_data.shape)
         return noisy_data
