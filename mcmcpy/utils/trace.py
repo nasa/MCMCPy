@@ -1,3 +1,7 @@
+import numpy as np
+import pymc
+
+
 class MockDatabase():
     '''
     Mimicks a pymc database (primarily for the access to a trace object by
@@ -20,7 +24,7 @@ class TraceSampler():
 
     def __init__(self, mcmc_fname, backend):
         self._pymc_backend = self._find_backend(backend)
-        self._db = backend.load(mcmc_fname)
+        self._db = self._pymc_backend.load(mcmc_fname)
         self.param_names = self._db.trace_names
         self.samples = self._extract_sample_array()
 
