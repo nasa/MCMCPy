@@ -25,7 +25,7 @@ class TraceSampler():
     def __init__(self, mcmc_fname, backend):
         self._pymc_backend = self._find_backend(backend)
         self._db = self._pymc_backend.load(mcmc_fname)
-        self.param_names = self._db.trace_names
+        self.param_names = self._db.trace_names[0]
         self.samples = self._extract_sample_array()
 
 
@@ -53,11 +53,11 @@ class TraceSampler():
         the mcmc database that was passed to class __init__().
         '''
         num_avail_samples = len(self.samples)
-        if num_samples > num_avail_samples:
-            sample_indices = np.random.randit(0, num_avail_samples)
+        if num_samples < num_avail_samples:
+            indices = np.random.randint(0, num_avail_samples, num_samples)
         else:
             raise ValueError('num_samples > available samples.')
-        return self.samples(sample_indices)
+        return self.samples[indices]
 
 
 
