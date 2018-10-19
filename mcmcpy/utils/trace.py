@@ -51,6 +51,8 @@ class TraceSampler():
         num_avail_samples = len(self.samples)
         if num_samples > num_avail_samples:
             sample_indices = np.random.randit(0, num_avail_samples)
+        else:
+            raise ValueError('num_samples > available samples.')
         return self.samples(sample_indices)
 
 
