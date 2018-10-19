@@ -249,7 +249,8 @@ def pairwise(trace, keys, labels=None, color='C0', xylim=None,
     # plot
     L = len(keys)
     
-    fig = plt.figure(figsize=[10*(L-1)/2,10*(L-1)/2])
+    if fig == 'new':
+        fig = plt.figure(figsize=[10*(L-1)/2,10*(L-1)/2])
     
     # create lower triangle to obtain param combos
     tril = np.tril(np.arange(L**2).reshape([L,L]),-1)
