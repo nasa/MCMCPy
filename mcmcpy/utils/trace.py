@@ -50,14 +50,22 @@ class TraceSampler():
     def sample(self, num_samples):
         '''
         Randomly samples num_samples parameter vectors from the trace stored in
-        the mcmc database that was passed to class __init__().
+        the mcmc database that was passed to class __init__(). Returns a list
+        with length equal to num_samples; each element of list is a parameter
+        dictionary.
         '''
         num_avail_samples = len(self.samples)
         if num_samples < num_avail_samples:
             indices = np.random.randint(0, num_avail_samples, num_samples)
         else:
             raise ValueError('num_samples > available samples.')
-        return self.samples[indices]
+        samples = self.samples[indices]
+        samples = self._convert_sample_array_to_dictionaries(samples)
+        return samples
 
 
-
+    def _convert_sample_array_to_dictionaries(self, samples):
+        conv_samples = []
+        for s in samples:
+            conv_samples.append({k: s[i] for i, k in enumerate(self.param_names)})
+        return conv_samples
