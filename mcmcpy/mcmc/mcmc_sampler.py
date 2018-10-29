@@ -216,6 +216,8 @@ class MCMCSampler:
         # Setup pymc sampler (set to output results as pickle file
         if self.storage_backend != 'ram':
             dbname = self.working_dir+'/mcmc'+self.backend_ext
+            if self.storage_backend == 'hdf5':
+                self._remove_hdf5_if_exists(dbname)
         else:
             dbname = None
         self.MCMC = pymc.MCMC(self.pymc_mod, db=self.storage_backend, 
@@ -277,6 +279,14 @@ class MCMCSampler:
         #self.MCMC.db.close() TODO
         self._enable_trace_plotting()
         self.MCMC.db.commit()
+
+
+    @staticmethod
+    def _remove_hdf5_if_exists(dbname):
+        if os.path.exists(dbname):
+            print 'database %s exists; overwriting...' % dbname
+            os.remove(dbname)
+        return None
 
 
     def generate_pymc_model(self, q0=None, ssq0=None, std_dev0=None,
@@ -471,27 +481,27 @@ class MCMCSampler:
             raise TypeError('Data must be a single list of floats.')
 
 
-    def _check_mcmc_database(self, mcmc_database):
-        '''
-        Checks whether a PyMC database is already loaded. If mcmc_database
-        is given (ie not None), then it will override the currently loaded
-        database. If neither exist, raise IOError.
-        '''
-        # Check if MCMC database is already defined, load from mcmc_database
-        if mcmc_database != None:
-            # throw warning if overwriting self.db
-            if self.db != None:
-                raise Warning('Overwriting currently loaded MCMC database!')
-            # overwrite / load
-            if os.path.isfile(mcmc_database):
-                self.db = self.loader.load(mcmc_database)
-            else:
-                raise IOError('MCMC database file '+mcmc_database+\
-                               ' does not exist!')
-        elif self.db == None and mcmc_database == None:
-            raise IOError('MCMC database cannot be found: either self.db must'
-                          ' be defined (using the sample() method), or the arg'
-                          ' mcmc_database must be passed to ict().')
+    #def _check_mcmc_database(self, mcmc_database):
+    #    '''
+    #    Checks whether a PyMC database is already loaded. If mcmc_database
+    #    is given (ie not None), then it will override the currently loaded
+    #    database. If neither exist, raise IOError.
+    #    '''
+    #    # Check if MCMC database is already defined, load from mcmc_database
+    #    if mcmc_database != None:
+    #        # throw warning if overwriting self.db
+    #        if self.db != None:
+    #            raise Warning('Overwriting currently loaded MCMC database!')
+    #        # overwrite / load
+    #        if os.path.isfile(mcmc_database):
+    #            self.db = self.loader.load(mcmc_database)
+    #        else:
+    #            raise IOError('MCMC database file '+mcmc_database+\
+    #                           ' does not exist!')
+    #    elif self.db == None and mcmc_database == None:
+    #        raise IOError('MCMC database cannot be found: either self.db must'
+    #                      ' be defined (using the sample() method), or the arg'
+    #                      ' mcmc_database must be passed to ict().')
 
 
     def _create_kde_stochastic(self, kde, kde_name, param_names):
