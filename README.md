@@ -15,7 +15,7 @@ To operate MCMCPy, the user supplies a computational model built in Python 2.7,
 defines prior distributions for each of the model parameters to be estimated, and
 provides data to be used for calibration. These are roughly the same steps required
 to operate SMCPy. Markov chain Monte Carlo sampling can be conducted with ease
-through instantiation of the MCMCSampler class and a call to the sample () method.
+through instantiation of the MCMCSampler class and a call to the sample() method.
 The output of this process is an approximation of the parameter posterior probability
 distribution conditioned on the data provided.
 
