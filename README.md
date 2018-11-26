@@ -19,6 +19,9 @@ through instantiation of the MCMCSampler class and a call to the sample () metho
 The output of this process is an approximation of the parameter posterior probability
 distribution conditioned on the data provided.
 
+This software was funded by and developed under the High Performance Computing Incubator
+(HPCI) at NASA Langley Research Center.
+
 ----------------------------------------------------------------------------------------------
 Notices:
 Copyright 2018 United States Government as represented by the Administrator of the National Aeronautics and Space Administration. No copyright is claimed in the United States under Title 17, U.S. Code. All Other Rights Reserved.
