@@ -392,7 +392,7 @@ class MCMCSampler:
                                    doc='model_RV', parents=parents, 
                                    trace=model_output_stored, plot=False)
 
-        # Posterior (random variable, normally distributed, centered at model)
+        # Likelihood (random variable, normally distributed, centered at model)
         results = pymc.Normal('results', mu=model, tau=precision,
                               value=self.data, observed=True)
 
